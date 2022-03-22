@@ -23,6 +23,10 @@ const getSomething = () => {
     })
 }
 
+// PROMISES SÃO OBJETOS/VALORES REQUISITADOS QUE LEVAM
+// TEMPO PARA RETORNAREM, PODENDO ASSIM ATRAPALHAR A 
+// SEQUENCIA CASO OS PRÓXIMOS ASSERTS NECESSITEM DE ALGO
+// DAS PROMISES
 const system = () => {
     console.log('init');
     getSomething().then(some => {
