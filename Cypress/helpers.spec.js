@@ -33,4 +33,21 @@ describe('Helpers', () => {
              return 2
          }).should('be.equal', 1)
    })
+
+
+   // Its => Dá uma propriedade/atributo do objeto que está no meio da cadeia do cypress
+   // Ou seja, tendo o objeto, posso verificar com o 'its' algum atributo/propriedade
+   it.only('Its...', () => {
+       const obj = {nome: 'User', idade: 20 }
+       cy.wrap(obj).should('have.property', 'nome', 'User')
+       cy.wrap(obj).its('nome').should('be.equal', 'User')
+
+       const obj2 = { nome: 'User', idade: 20, endereco: { rua: 'dos bobos'}}
+       cy.wrap(obj2).its('endereco').should('have.property', 'rua')
+       cy.wrap(obj2).its('endereco').its('rua').should('contain', 'bobos')
+
+       cy.visit('https://wcaquino.me/cypress/componentes.html')
+       cy.title().its('length').should('be.equal', 20)
+   })
+
 })
