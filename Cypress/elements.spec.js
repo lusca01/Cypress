@@ -70,7 +70,7 @@ describe('Work with basic elements', () => {
         cy.get('#formComidaVegetariana').should('be.checked')
     })
 
-    it('ComboBox', () => {
+    it.only('ComboBox', () => {
         cy.get('[data-test=dataEscolaridade]')
             .select('2o grau completo')// Seleciona uma opção do comboBox
             .should('have.value', '2graucomp')// Compara se o valor do campo é '2graucomp'
@@ -78,10 +78,33 @@ describe('Work with basic elements', () => {
         cy.get('[data-test=dataEscolaridade]')
         .select('1o grau completo')
         .should('have.value', '1graucomp')    
+
+        cy.get('[data-test=dataEscolaridade] option')
+            .should('have.length', 8)
+
+        cy.get('[data-test=dataEscolaridade] option').then($arr => {
+            const values = []
+            $arr.each(function () {
+                values.push(this.innerHTML)
+            })
+            expect(values).to.include.members(["Superior", "Mestrado"])
+        })
+
     })
 
-    it.only('ComboMultiplo', () => {
-        cy.get('[data-testid=dataEsportes]').select(['natacao','Corrida', 'nada'])// Seleciona mais de uma opção no comboBox, sendo necessário inserir em um array quando for mais de 1
+    it('ComboMultiplo', () => {
+        cy.get('[data-testid=dataEsportes]')
+            .select(['natacao','Corrida', 'nada'])// Seleciona mais de uma opção no comboBox, sendo necessário inserir em um array quando for mais de 1
+        cy.get('[data-testid=dataEsportes]').then($el => {
+            expect($el.val()).to.be.deep.equal(['natacao','Corrida', 'nada'])
+            expect($el.val()).to.have.length(3)
+        })
+
+        cy.get('[data-testid=dataEsportes]')
+            .invoke('val')
+            .should('eql',['natacao','Corrida', 'nada'])
+    
+    
     })
 
 })
