@@ -12,15 +12,16 @@ describe('Work with alerts', () => {
         cy.reload() // .reload = F5, recarrega a página
     })
 
-    it('Alert', () => {
-        cy.get('#alert').click()
+    it.only('Alert', () => {
+        // cy.get('#alert').click()
         // Metodo on - Captura algum evento que acontece na página
         // cy.on('evento/propriedade da página', 'variável que recebe a 
         // propriedade seja mensagem ou objeto' => { assertiva })
-        cy.on('window:alert', msg => {
-            console.log(msg)
-            expect(msg).to.be.equal('Alert Simples')
-        })
+        // cy.on('window:alert', msg => {
+        //     console.log(msg)
+        //     expect(msg).to.be.equal('Alert Simples')
+        // })
+        cy.clickAlert('#alert', 'Alert Simples')
     })
 
     it('Alert com mock', () => {
@@ -54,7 +55,7 @@ describe('Work with alerts', () => {
         cy.get('#confirm').click()
     })
 
-    it.only('Prompt', () => {
+    it('Prompt', () => {
         // Prompt - É tipo um alert com form para preencher um campo
         cy.window().then(win => {
             cy.stub(win, 'prompt').returns('42')

@@ -18,8 +18,12 @@ describe('Work with locators', () => {
         cy.get('#tabelaUsuarios tr:contains(\'Doutorado\'):eq(0) td:eq(6) input')
     })
 
+    // Xpath - Auxilia na busca por elementos na página que não são facilmente
+    // encontrados (Para isso, ver documentação)
     it('Using xpath', () => {
-        cy.xpath('//input')
+        cy.xpath("//input[contains(@onclick, 'Francisco')]")
+        cy.xpath("//table[@id='tabelaUsuarios']//td[contains(.,'Francisco')]/..//input[@type='text']")
+        cy.xpath("(//table[@id='tabelaUsuarios']//td[contains(.,'Doutorado')])[2]/..//input[@type='text']")
     })
 
 })
